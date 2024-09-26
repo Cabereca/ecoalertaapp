@@ -19,13 +19,13 @@ const ReportList = ({ navigation }) => {
     let ocurrencesApi: Ocurrence[] = [];
 
     ocurrencesApi = (await api.get("/occurrence")).data;
-    // console.log("\n\n", await api.get("/occurrence"));
+    console.log("\n\n", ocurrencesApi);
 
     setOcurrences(ocurrencesApi);
   };
 
   const deleteOcurrence = async (id: string) => {
-    const { status } = await api.delete(`/occurrence/${id}`);
+    await api.delete(`/occurrence/${id}`);
     alert("Ocorrência removida com sucesso!");
     navigation.goBack();
   };

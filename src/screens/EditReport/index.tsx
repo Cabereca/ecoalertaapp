@@ -600,6 +600,7 @@ const EditReport = ({ navigation }: Props) => {
 
 const style = StyleSheet.create({
   container: {
+		flex: 1,
     backgroundColor: "#F4FEF4",
   },
   topContainer: {

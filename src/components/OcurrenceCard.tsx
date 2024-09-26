@@ -53,6 +53,9 @@ const OcurrenceCard = ({ ocurrence, onDeleteOcurrence }: Props): React.JSX.Eleme
                     <Text style={styles.Text}>{ocurrence.description.length > 140 ? `${ocurrence.description.substring(0, 140).trim()}...` : ocurrence.description}</Text>
                 </View>
             </View>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Ver Ocorrência', {ocurrence} )}>
+                <Text style={styles.Text}>Ver</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Editar Ocorrência', {ocurrence} )}>
                 <Text style={styles.Text}>Editar</Text>
             </TouchableOpacity>

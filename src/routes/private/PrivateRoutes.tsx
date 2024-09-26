@@ -4,6 +4,7 @@ import Report from "../../screens/Report";
 import ReportList from '../../screens/Profile/ReportList';
 import ChangeInfos from '../../screens/Profile/ChangeInfos';
 import EditReport from '../../screens/EditReport';
+import ViewReport from '../../screens/ViewReport';
 
 const Stack = createNativeStackNavigator()
 
@@ -15,6 +16,7 @@ const PrivateRouters = () => {
             <Stack.Screen name="Lista de Ocorrências" component={ReportList} />
             <Stack.Screen name="Alterar Informações" component={ChangeInfos} />
             <Stack.Screen name="Editar Ocorrência" component={EditReport} />
+            <Stack.Screen name="Ver Ocorrência" component={ViewReport} />
         </Stack.Navigator>
     )
 }

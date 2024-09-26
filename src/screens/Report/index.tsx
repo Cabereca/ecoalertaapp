@@ -277,6 +277,7 @@ const Report = ({ navigation }) => {
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#F4FEF4",
   },
   topContainer: {
