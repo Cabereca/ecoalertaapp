@@ -36,9 +36,10 @@ const OcurrenceCard = ({ ocurrence, onDeleteOcurrence }: Props): React.JSX.Eleme
         <View style={styles.OcurrenceCard}>
             <View style={styles.Info}>
                 <View style={styles.Header}>
-                    <View style={styles.Badge}>
-                        <Text style={styles.Text}>{ocurrence.type}</Text>
-                    </View>
+                    {/* <View style={styles.Badge}>
+                        <Text style={styles.Text}>{ocurrence.title}</Text>
+                    </View> */}
+                    <View></View>
                     <TouchableOpacity style={styles.DeleteButton} onPress={handleDelete}>
                         <Ionicons
                             name={"trash-sharp"}
@@ -49,8 +50,7 @@ const OcurrenceCard = ({ ocurrence, onDeleteOcurrence }: Props): React.JSX.Eleme
                 </View>
                 <Text style={styles.Title}>{ocurrence.title}</Text>
                 <View>
-                    <Text style={styles.Text}>{ocurrence.date}</Text>
-                    <Text style={styles.Text}>{ocurrence.time}</Text>
+                    <Text style={styles.Text}>{(new Date(ocurrence.dateTime)).toLocaleDateString()}</Text>
                     <Text style={styles.Text}>{ocurrence.description.length > 140 ? `${ocurrence.description.substring(0, 140).trim()}...` : ocurrence.description}</Text>
                 </View>
             </View>

@@ -141,7 +141,7 @@ const Report = ({ navigation }: Props) => {
 
   const onChangeDate = (event, date) => {
     if (date) {
-      console.log("DATAAAA", new Date(date))
+      // console.log("DATAAAA", new Date(date))
       const currentDate = date || selectedDate;
       setShow(false);
       setShowRealDate(date);
@@ -153,7 +153,6 @@ const Report = ({ navigation }: Props) => {
   const showDatePicker = () => {
     setShow(true);
   };
-
 
   useEffect(() => {
     requestLocationPermissions();
