@@ -1,8 +1,8 @@
 import api from "../../api/api"
 
-const createOcurrenceRoute = async (data) => {
+export const createOcurrenceRoute = async (data) => {
     try {
-        const newOcurrence = await api.post("/api/v1/ocurrences/save", data, {
+        const newOcurrence = await api.post("/occurrence", data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
@@ -29,5 +29,3 @@ const createOcurrenceRoute = async (data) => {
         }
     }
 }
-
-export {createOcurrenceRoute};

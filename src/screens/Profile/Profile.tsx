@@ -45,8 +45,8 @@ const Profile = ({ navigation }: Props) => {
         <ContainerScreen>
             <ProfileAvatar />
             <View style={styles.Options}>
-                <ProfileOption iconName='list-sharp' title="Lista de Reportes" hasBorderBottom onPress={() => navigation.navigate('reportList')} />
-                <ProfileOption iconName='person' title="Alterar informações" hasBorderBottom onPress={() => navigation.navigate('changeInfos')} />
+                <ProfileOption iconName='list-sharp' title="Lista de Reportes" hasBorderBottom onPress={() => navigation.navigate('Lista de Ocorrencias')} />
+                <ProfileOption iconName='person' title="Alterar informações" hasBorderBottom onPress={() => navigation.navigate('Alterar Informações')} />
                 <ProfileOption iconName='log-out-outline' title="Sair" isAllRedColor onPress={handleLogout} />
             </View>
         </ContainerScreen>

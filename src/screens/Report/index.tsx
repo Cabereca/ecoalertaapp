@@ -21,13 +21,12 @@ import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import imageIcon from "../../assets/icons/imageIcon.png";
-import { findAllPoliceStations } from "../../services/findAllPoliceStations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createOcurrenceRoute } from "../../services/createOcurrenceRoute";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import logo from "../../assets/images/logo.png";
+import { createOcurrenceRoute } from "../../services/createOcurrenceRoute";
 
 interface Props {
   navigation: NativeStackNavigationProp<ParamListBase, "enter">;
@@ -37,30 +36,44 @@ const Report = ({ navigation }: Props) => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedHour, setSelectedHour] = useState(new Date());
   const [show, setShow] = useState(false);
   const [exibe, setExibe] = useState(false);
   const [showDate, setShowDate] = useState("dd/mm/yyyy");
-  const [showHour, setShowHour] = useState("00:00");
+  const [showRealDate, setShowRealDate] = useState();
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-  const [policeStations, setPoliceStations] = useState([]);
-  const [policeStationId, setPoliceStationId] = useState("");
 
   const [imagesPath, setImagesPath] = useState([]);
 
   const createOcurrence = async () => {
     try {
-      const data = new FormData();
+      const userId = await AsyncStorage.getItem("userId");
+      const data1 = {
+        title,
+        description,
+        location: `${position.latitude} ${position.longitude}`,
+        userId,
+        dateTime: new Date(showRealDate),
+        // ImageOccurrence: [],
+        status: "OPEN",
+        ImageOccurrence: [
+          {
+            path: imagesPath.length > 0 ? imagesPath[0] : "",
+            occurrenceId: "xx",
+          }
+        ]
+      };
+      console.log(data1, String(showRealDate));
       // console.log({title, description, lat: String(position.latitude), long: String(position.longitude), date: showDate, showHour});
-
+      
+      const data = new FormData();
       data.append("title", title);
       data.append("description", description);
-      data.append("latitude", String(position.latitude));
-      data.append("longitude", String(position.longitude));
-      data.append("date", showDate);
-      data.append("time", showHour);
-      data.append("user_id", await AsyncStorage.getItem("userId"));
+      data.append("location", JSON.stringify(position));
+      data.append("dateTime", String(showRealDate));
+      data.append("userId", userId);
+      data.append("status", "OPEN");
+      // data.append("ImagesOccurrence", imagesPath);
 
       imagesPath.forEach((imageURI, index) => {
         data.append("images", {
@@ -76,8 +89,6 @@ const Report = ({ navigation }: Props) => {
         index: 0,
         routes: [{ name: "Report" }],
       });
-
-      navigation.navigate("Map");
     } catch (error) {
       if (error.response) {
         console.error("Error response data:", error.response.data);
@@ -124,36 +135,18 @@ const Report = ({ navigation }: Props) => {
     }
   };
 
-  const requestPoliceStations = async () => {
-    const policeStations = await findAllPoliceStations();
-
-    setPoliceStations(policeStations);
-  };
-
   const handleSelectMapPosition = (event: MapPressEvent) => {
     setPosition(event.nativeEvent.coordinate);
   };
 
   const onChangeDate = (event, date) => {
     if (date) {
+      console.log("DATAAAA", new Date(date))
       const currentDate = date || selectedDate;
       setShow(false);
+      setShowRealDate(date);
       setSelectedDate(currentDate);
       setShowDate(currentDate.toLocaleDateString());
-    }
-  };
-
-  const onChangeHour = (event, hour) => {
-    if (hour) {
-      const currentHour = hour || selectedHour;
-      setExibe(false);
-      setSelectedHour(currentHour);
-      setShowHour(
-        currentHour.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
     }
   };
 
@@ -161,13 +154,9 @@ const Report = ({ navigation }: Props) => {
     setShow(true);
   };
 
-  const showHourPicker = () => {
-    setExibe(true);
-  };
 
   useEffect(() => {
     requestLocationPermissions();
-    requestPoliceStations();
   }, []);
 
   return (
