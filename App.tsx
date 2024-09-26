@@ -9,7 +9,7 @@ import PrivateRoutes from './src/routes/private/PrivateRoutes';
 import PublicRoutes from './src/routes/public/PublicRoutes';
 
 function AppContent() {
-  const { isAuth, setIsAuth, setUserName, setIsAdmin } = useContext(AuthContext);
+  const { isAuth, setIsAuth, setIsAdmin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,11 +18,10 @@ function AppContent() {
         const token = await AsyncStorage.getItem("token");
 
         if (token) {
-          api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const user = (await api.get("/api/v1/users/profile")).data;
-          setUserName(user.name);
+          // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          // const user = (await api.get("/api/v1/users/profile")).data;
           setIsAuth(true);
-          setIsAdmin(user.Permission.role === 'admin')
+          // setIsAdmin(user.Permission.role === 'admin')
         } else {
           setIsAuth(false);
         }

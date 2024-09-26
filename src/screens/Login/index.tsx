@@ -1,26 +1,23 @@
-import { useContext, useState } from "react";
-import { Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ParamListBase } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React, { useContext, useState } from "react";
+import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import api from "../../api/api";
 import logo from '../../assets/images/logo.png';
-import { GenericButton } from "../../components/genericButton";
+import Button from "../../components/Button";
+import HeaderWithLogo from "../../components/HeaderWithLogo";
 import { InputEmailButton } from "../../components/inputEmailButton";
 import { InputPasswordButton } from "../../components/inputPasswordButton";
-import { login } from "../../services/login";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
-import HeaderWithLogo from "../../components/HeaderWithLogo";
-import Button from "../../components/Button";
 import { AuthContext } from "../../contexts/AuthContext";
-import api from "../../api/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { findUserById } from "../../services/findUserById";
-import React from "react";
 
 interface Props {
     navigation: NativeStackNavigationProp<ParamListBase, "login">
 }
 
 export default function Login({ navigation }: Props) {
-    const { setIsAuth, setUserName, setIsAdmin } = useContext(AuthContext);
+    const { setIsAuth, setIsAdmin } = useContext(AuthContext);
     const [inputEmail, setInputEmail] = useState('');
     const [inputPassword, setInputPassword] = useState('');
 
@@ -31,17 +28,16 @@ export default function Login({ navigation }: Props) {
         }
 
         try {
-            const response = await api.post("/auth/login", { email: inputEmail, password: inputPassword }).then(response => {
+            const response = await api.post("/userLogin", { email: inputEmail, password: inputPassword }).then(response => {
                 return response;
             });
             if (response.status == 200) {
                 const token = response.data.token;
-                const userId = response.data.userId;
+                const userId = response.data.user.id;
                 await AsyncStorage.setItem('token', token);
                 api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const user = await findUserById();
                 await AsyncStorage.setItem('userId', userId);
-                setUserName(user.name);
                 setIsAuth(true);
                 setIsAdmin(user.Permission.role === 'admin')
             } else {

@@ -21,15 +21,16 @@ const Signup = ({ navigation }: Props) => {
     const [CPF, setCPF] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [phone, setPhone] = useState();
 
     const handleSignup = async () => {
-        if (!name || !CPF || !email || !password) {
+        if (!name || !CPF || !email || !password || !phone) {
             Alert.alert("Erro", "Por favor, preencha todos os campos.");
             return;
         }
     
         try {
-            const response = await api.post("/auth/signup", {name, cpf: CPF, email, password}).then(response => {
+            const response = await api.post("/users", {name, cpf: CPF, email, password, phone}).then(response => {
                 return response;
             }); 
             if (response.status) {
@@ -52,6 +53,7 @@ const Signup = ({ navigation }: Props) => {
                     <Input title={"Nome"} placeholder={"Digite o seu nome..."} value={name} onChange={setName} />
                     <Input title={"CPF"} placeholder={"Digite o seu cpf..."} value={CPF} onChange={setCPF} />
                     <Input title="E-mail" placeholder="Digite o seu email..." value={email} onChange={setEmail} />
+                    <Input title="Telefone" placeholder="Digite o seu telefone..." value={phone} onChange={setPhone} />
                     <InputPasswordButton title="Senha" place="Digite a sua senha..." state={setPassword} valuePassword={password} />
                 </View>
                 <View>
