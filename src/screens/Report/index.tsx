@@ -1,38 +1,29 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  Button,
-  Image,
-  ScrollView,
-  Alert,
-} from "react-native";
-import MapView, { Marker, MapPressEvent } from "react-native-maps";
-import {
-  requestForegroundPermissionsAsync,
-  getCurrentPositionAsync,
-  LocationObject,
-} from "expo-location";
-import { useState, useEffect } from "react";
-import { Picker } from "@react-native-picker/picker";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
+import {
+  getCurrentPositionAsync,
+  LocationObject,
+  requestForegroundPermissionsAsync,
+} from "expo-location";
+import { useEffect, useState } from "react";
+import {
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import MapView, { MapPressEvent, Marker } from "react-native-maps";
 import imageIcon from "../../assets/icons/imageIcon.png";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import logo from "../../assets/images/logo.png";
 import { createOcurrenceRoute } from "../../services/createOcurrenceRoute";
 
-interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, "enter">;
-}
-
-const Report = ({ navigation }: Props) => {
+const Report = ({ navigation }) => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -60,12 +51,12 @@ const Report = ({ navigation }: Props) => {
           {
             path: imagesPath.length > 0 ? imagesPath[0] : "",
             occurrenceId: "xx",
-          }
-        ]
+          },
+        ],
       };
       console.log(data1, String(showRealDate));
       // console.log({title, description, lat: String(position.latitude), long: String(position.longitude), date: showDate, showHour});
-      
+
       const data = new FormData();
       data.append("title", title);
       data.append("description", description);
@@ -85,10 +76,7 @@ const Report = ({ navigation }: Props) => {
 
       await createOcurrenceRoute(data);
 
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Report" }],
-      });
+      navigation.navigate("Lista de Ocorrências");
     } catch (error) {
       if (error.response) {
         console.error("Error response data:", error.response.data);

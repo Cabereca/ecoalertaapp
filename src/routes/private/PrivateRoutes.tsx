@@ -3,6 +3,7 @@ import Profile from "../../screens/Profile";
 import Report from "../../screens/Report";
 import ReportList from '../../screens/Profile/ReportList';
 import ChangeInfos from '../../screens/Profile/ChangeInfos';
+import EditReport from '../../screens/EditReport';
 
 const Stack = createNativeStackNavigator()
 
@@ -13,6 +14,7 @@ const PrivateRouters = () => {
             <Stack.Screen name="Perfil" component={Profile} />
             <Stack.Screen name="Lista de Ocorrências" component={ReportList} />
             <Stack.Screen name="Alterar Informações" component={ChangeInfos} />
+            <Stack.Screen name="Editar Ocorrência" component={EditReport} />
         </Stack.Navigator>
     )
 }

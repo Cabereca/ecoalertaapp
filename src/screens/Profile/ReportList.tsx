@@ -7,63 +7,64 @@ import ContainerScreen from "../../components/ContainerScreen";
 import OcurrenceCard from "../../components/OcurrenceCard";
 import Ocurrence from "../../interfaces/Ocurrence";
 
-const ReportList = () => {
-    const [ocurrences, setOcurrences] = useState<Ocurrence[]>([]);
-    const isFocused = useIsFocused();
+const ReportList = ({ navigation }) => {
+  const [ocurrences, setOcurrences] = useState<Ocurrence[]>([]);
+  const isFocused = useIsFocused();
 
-    useEffect(() => {
-        loadOcurrences();
-    }, []);
+  useEffect(() => {
+    loadOcurrences();
+  }, []);
 
-    const loadOcurrences = async () => {
-        let ocurrencesApi: Ocurrence[] = [];
+  const loadOcurrences = async () => {
+    let ocurrencesApi: Ocurrence[] = [];
 
-        ocurrencesApi = (await api.get("/occurrence")).data;
-        console.log("\n\n", await api.get("/occurrence"));
+    ocurrencesApi = (await api.get("/occurrence")).data;
+    // console.log("\n\n", await api.get("/occurrence"));
 
-        setOcurrences(ocurrencesApi);
-    }
+    setOcurrences(ocurrencesApi);
+  };
 
-    const deleteOcurrence = async (id: string) => {
-        const { status } = await api.delete(`/api/v1/ocurrences/${id}`)
+  const deleteOcurrence = async (id: string) => {
+    const { status } = await api.delete(`/occurrence/${id}`);
+    alert("Ocorrência removida com sucesso!");
+    navigation.goBack();
+  };
 
-        if (status === 200) {
-            loadOcurrences();
-        }
-    }
-
-    return (
-        <ContainerScreen>
-            {isFocused && <StatusBar backgroundColor="#00B603" style="light" animated={true} />}
-            <FlatList
-                contentContainerStyle={styles.Content}
-                data={ocurrences}
-                renderItem={({ item }) => (
-                    <OcurrenceCard
-                        key={item.id}
-                        ocurrence={item}
-                        onDeleteOcurrence={() => deleteOcurrence(item.id)}
-                    />
-                )}
-                ListEmptyComponent={() => (
-                    <Text style={styles.Text}>Você não possui nenhum reporte!</Text>
-                )}
-            />
-        </ContainerScreen>
-    )
-}
+  return (
+    <ContainerScreen>
+      {isFocused && (
+        <StatusBar backgroundColor="#00B603" style="light" animated={true} />
+      )}
+      <FlatList
+        contentContainerStyle={styles.Content}
+        data={ocurrences}
+        renderItem={({ item }) => (
+          <OcurrenceCard
+            key={item.id}
+            ocurrence={item}
+            onDeleteOcurrence={() => deleteOcurrence(item.id)}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <Text style={styles.Text}>Você não possui nenhum reporte!</Text>
+        )}
+      />
+    </ContainerScreen>
+  );
+};
 
 const styles = StyleSheet.create({
-    Content: {
-        paddingBottom: 50,
-        alignItems: 'center',
-        gap: 15
-    },
-    Text: {
-        fontSize: 15.89,
-        fontWeight: "400",
-        color: "#FFFFFF"
-    }
+  Content: {
+    paddingBottom: 50,
+    width: "100%",
+    alignItems: "center",
+    gap: 15,
+  },
+  Text: {
+    fontSize: 15.89,
+    fontWeight: "400",
+    color: "#FFFFFF",
+  },
 });
 
 export default ReportList;

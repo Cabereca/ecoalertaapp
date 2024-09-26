@@ -5,7 +5,6 @@ import Ocurrence from "../interfaces/Ocurrence";
 import api from '../api/api';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import EditReport from '../screens/EditReport';
 
 interface Props {
     ocurrence: Ocurrence,
@@ -54,7 +53,7 @@ const OcurrenceCard = ({ ocurrence, onDeleteOcurrence }: Props): React.JSX.Eleme
                     <Text style={styles.Text}>{ocurrence.description.length > 140 ? `${ocurrence.description.substring(0, 140).trim()}...` : ocurrence.description}</Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('editReport', {ocurrence} )}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Editar Ocorrência', {ocurrence} )}>
                 <Text style={styles.Text}>Editar</Text>
             </TouchableOpacity>
         </View>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
         color: "#FFFFFF"
     },
     button: {
-        width: 156,
+        width: "100%",
         backgroundColor: "#00B603",
         height: 30,
         borderRadius: 5,
