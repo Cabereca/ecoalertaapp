@@ -127,7 +127,7 @@ const EditReport = ({ navigation }: Props) => {
               style={{ ...style.reportButton, marginBottom: 50 }}
               onPress={createOcurrence}
             >
-              <Text style={style.reportButtonText}>Reportar</Text>
+              <Text style={style.reportButtonText}>Editar</Text>
             </TouchableOpacity>
           </View>
         </View>

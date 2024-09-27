@@ -59,9 +59,9 @@ export default function Login({ navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <HeaderWithLogo image={logo} title={`Login`} />
 
-      <Text style={{ color: "red", fontWeight: "bold" }}>
+      {/* <Text style={{ color: "red", fontWeight: "bold" }}>
         TROQUE O IP DA API, NA API E NO ENV!!!!
-      </Text>
+      </Text> */}
       <View style={styles.inputContainer}>
         <InputEmailButton
           title="E-mail"

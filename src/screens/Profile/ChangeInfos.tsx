@@ -46,7 +46,7 @@ const ChangeInfos = ({ navigation }: Props) => {
           return response;
         });
       if (response.status) {
-        Alert.alert("Edição feito com sucesso!");
+        Alert.alert("Edição feita com sucesso!");
         navigation.navigate("Perfil");
       } else {
         Alert.alert("Erro", "Credenciais inválidas.");

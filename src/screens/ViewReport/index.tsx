@@ -29,6 +29,7 @@ const ViewReport = ({ navigation }) => {
   const [title, setTitle] = useState(ocurrence.title);
   const [description, setDescription] = useState(ocurrence.description);
   const [imagesPath, setImagesPath] = useState(ocurrence.images);
+  // console.log(process.env.API_URL);
 
   return (
     <View style={style.container}>
