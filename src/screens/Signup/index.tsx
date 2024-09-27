@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useContext, useState } from "react";
 import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import api from "../../api/api";
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/logo.png';
 import Button from "../../components/Button";
 import HeaderWithLogo from "../../components/HeaderWithLogo";
 import { Input } from "../../components/Input";

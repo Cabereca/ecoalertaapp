@@ -21,7 +21,7 @@ import {
   View,
 } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/logo.png";
 import { createOcurrenceRoute } from "../../services/createOcurrenceRoute";
 
 const Report = ({ navigation }) => {
