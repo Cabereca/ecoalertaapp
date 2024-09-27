@@ -1,4 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
@@ -9,6 +10,7 @@ import {
 } from "expo-location";
 import { useEffect, useState } from "react";
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
@@ -19,7 +21,6 @@ import {
   View,
 } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
-import imageIcon from "../../assets/icons/imageIcon.png";
 import logo from "../../assets/images/logo.png";
 import { createOcurrenceRoute } from "../../services/createOcurrenceRoute";
 
@@ -28,9 +29,8 @@ const Report = ({ navigation }) => {
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const [exibe, setExibe] = useState(false);
   const [showDate, setShowDate] = useState("dd/mm/yyyy");
-  const [showRealDate, setShowRealDate] = useState();
+  const [showRealDate, setShowRealDate] = useState(null);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
 
@@ -38,6 +38,16 @@ const Report = ({ navigation }) => {
 
   const createOcurrence = async () => {
     try {
+      if (
+        position.latitude === 0 ||
+        title === "" ||
+        description === "" ||
+        showRealDate === null
+      ) {
+        Alert.alert("Erro", "Por favor, preencha todos os campos.");
+        return;
+      }
+
       const userId = await AsyncStorage.getItem("userId");
       const data1 = {
         title,
@@ -77,6 +87,8 @@ const Report = ({ navigation }) => {
       await createOcurrenceRoute(data);
 
       navigation.navigate("Lista de Ocorrências");
+
+      clear();
     } catch (error) {
       if (error.response) {
         console.error("Error response data:", error.response.data);
@@ -89,6 +101,15 @@ const Report = ({ navigation }) => {
       }
     }
   };
+
+  function clear() {
+    setPosition({ latitude: 0, longitude: 0 });
+    setShowDate("dd/mm/yyyy");
+    setShowRealDate(null);
+    setDescription("");
+    setTitle("");
+    setImagesPath([])
+  }
 
   const handleSelectImages = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -256,11 +277,8 @@ const Report = ({ navigation }) => {
               onPress={handleSelectImages}
               style={style.updateImageButton}
             >
-              <Image
-                style={style.updateImageButtonIcon}
-                source={imageIcon}
-              ></Image>
-              <Text style={style.updateImageButtonText}>Add imagem</Text>
+              <Ionicons name="images-sharp" color="#00B603" size={20} />
+              <Text style={{...style.updateImageButtonText, fontWeight: "bold" }}>Add imagem</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{ ...style.reportButton, marginBottom: 50 }}

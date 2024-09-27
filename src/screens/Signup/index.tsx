@@ -1,15 +1,14 @@
+import { ParamListBase } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useContext, useState } from "react";
-import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import api from "../../api/api";
 import logo from '../../assets/images/logo.png';
 import Button from "../../components/Button";
+import HeaderWithLogo from "../../components/HeaderWithLogo";
 import { Input } from "../../components/Input";
 import { InputPasswordButton } from "../../components/inputPasswordButton";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
-import HeaderWithLogo from "../../components/HeaderWithLogo";
-import api from "../../api/api";
 import { AuthContext } from "../../contexts/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
     navigation: NativeStackNavigationProp<ParamListBase, "signup">
@@ -35,7 +34,7 @@ const Signup = ({ navigation }: Props) => {
             }); 
             if (response.status) {
                 Alert.alert("Cadastro feito com sucesso!", "Faça login...")
-                navigation.navigate("login")
+                navigation.navigate("Login")
             } else {
                 Alert.alert("Erro", "Credenciais inválidas.");
             }

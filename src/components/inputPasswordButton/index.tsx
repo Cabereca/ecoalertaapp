@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from "react";
-import icon from "../../assets/icons/passIcon.png";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const InputPasswordButton = ({title, place, state, valuePassword}) => {
     const [status, onChangeStatus] = useState(true);
@@ -21,7 +21,9 @@ const InputPasswordButton = ({title, place, state, valuePassword}) => {
                     placeholderTextColor="#949191"
                     secureTextEntry={status}    
                 />
-                <TouchableOpacity onPress={handleStatus} style={style.passIcon}><Image source={icon}/></TouchableOpacity>
+                <TouchableOpacity onPress={handleStatus} style={style.passIcon}>
+                    {status ? <Ionicons name="eye-off" color="#00B603" size={23} /> : <Ionicons name="eye" color="#00B603" size={23} />}
+                </TouchableOpacity>
             </View>
         </View>
     )
