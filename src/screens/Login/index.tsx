@@ -19,7 +19,7 @@ import { InputPasswordButton } from "../../components/inputPasswordButton";
 import { AuthContext } from "../../contexts/AuthContext";
 
 interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, "login">;
+  navigation: NativeStackNavigationProp<ParamListBase, "Login">;
 }
 
 export default function Login({ navigation }: Props) {

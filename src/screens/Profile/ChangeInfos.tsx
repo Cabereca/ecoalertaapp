@@ -14,7 +14,7 @@ import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 
 interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, "signup">;
+  navigation: NativeStackNavigationProp<ParamListBase, "Alterar Informações">;
 }
 
 const ChangeInfos = ({ navigation }: Props) => {

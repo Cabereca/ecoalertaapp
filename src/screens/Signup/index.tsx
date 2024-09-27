@@ -1,6 +1,6 @@
 import { ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   SafeAreaView,
@@ -16,10 +16,9 @@ import Button from "../../components/Button";
 import HeaderWithLogo from "../../components/HeaderWithLogo";
 import { Input } from "../../components/Input";
 import { InputPasswordButton } from "../../components/inputPasswordButton";
-import { AuthContext } from "../../contexts/AuthContext";
 
 interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, "signup">;
+  navigation: NativeStackNavigationProp<ParamListBase, "Cadastro">;
 }
 
 const Signup = ({ navigation }: Props) => {
