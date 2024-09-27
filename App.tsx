@@ -7,6 +7,7 @@ import api from './src/api/api';
 import { AuthContext, AuthProvider } from './src/contexts/AuthContext';
 import PrivateRoutes from './src/routes/private/PrivateRoutes';
 import PublicRoutes from './src/routes/public/PublicRoutes';
+import { LogBox } from 'react-native';
 
 function AppContent() {
   const { isAuth, setIsAuth, setIsAdmin } = useContext(AuthContext);
@@ -49,6 +50,9 @@ function AppContent() {
 
 export default function App() {
   const [fontsLoaded] = useCustomFonts();
+  LogBox.ignoreLogs(["Warning: ..."]);
+  LogBox.ignoreAllLogs();
+  console.warn = () => {};
 
   if (!fontsLoaded) {
     return null;

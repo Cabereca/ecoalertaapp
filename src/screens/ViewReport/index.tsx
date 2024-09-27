@@ -1,4 +1,3 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { useState } from "react";
@@ -13,14 +12,13 @@ import {
   View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import imageIcon from "../../assets/icons/imageIcon.png";
-import logo from "../../assets/images/logo.png";
 import Ocurrence from "../../interfaces/Ocurrence";
 
 type EditReportRouteProp = RouteProp<{ viewReport: { ocurrence: Ocurrence } }>;
 
 const ViewReport = ({ navigation }) => {
   const { ocurrence } = useRoute<EditReportRouteProp>().params;
+  console.log(ocurrence);
 
   const [position, setPosition] = useState(ocurrence.location);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -28,10 +26,9 @@ const ViewReport = ({ navigation }) => {
   const [showDate, setShowDate] = useState(
     new Date(ocurrence.dateTime).toLocaleDateString()
   );
-  const [description, setDescription] = useState(ocurrence.description);
   const [title, setTitle] = useState(ocurrence.title);
-  console.log(ocurrence);
-  const [imagesPath, setImagesPath] = useState(ocurrence.Images);
+  const [description, setDescription] = useState(ocurrence.description);
+  const [imagesPath, setImagesPath] = useState(ocurrence.images);
 
   return (
     <View style={style.container}>
@@ -73,16 +70,7 @@ const ViewReport = ({ navigation }) => {
               value={description}
             />
 
-            <View style={style.imageContainer}>
-              {imagesPath?.map(({ path }, index) => (
-                <View key={index} style={style.imageWrapper}>
-                  <Image style={style.imageReport} source={{ uri: path }} />
-                  <TouchableOpacity>
-                    <Text style={style.removeText}>Remover</Text>
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </View>
+            
             <Text style={style.message}>
               Local do crime:
             </Text>
@@ -114,6 +102,14 @@ const ViewReport = ({ navigation }) => {
                   )}
                 </MapView>
               </View>
+            </View>
+            
+            {imagesPath.length ? <Text style={{marginTop: 20, fontWeight: "bold"}}>Imagens da Ocorrência:</Text>
+            : null}
+            <View style={style.imageContainer}>
+              {imagesPath?.map(({ path }) => (
+                <Image key={path} style={style.imageReport} source={{ uri: `${process.env.API_URL}/images/${path}` }} />
+              ))}
             </View>
           </View>
         </View>
@@ -195,8 +191,10 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   imageReport: {
-    width: 64,
-    height: 64,
+    width: 100,
+    height: 200,
+    borderWidth: 3,
+    borderColor: "#00B603",
     borderRadius: 10,
   },
   removeText: {

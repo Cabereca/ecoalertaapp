@@ -9,9 +9,10 @@ interface Ocurrence {
     dateTime: string,
     status: boolean,
     userId: string,
-    Images: {
+    images: {
         id: string,
-        path: string;
+        path: string,
+        occurrenceId: string,
     }[]
 }
 
