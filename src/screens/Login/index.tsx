@@ -23,7 +23,7 @@ interface Props {
 }
 
 export default function Login({ navigation }: Props) {
-  const { setIsAuth, setIsAdmin } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
@@ -44,10 +44,8 @@ export default function Login({ navigation }: Props) {
         const userId = response.data.user.id;
         await AsyncStorage.setItem("token", token);
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        // const user = await findUserById();
         await AsyncStorage.setItem("userId", userId);
         setIsAuth(true);
-        // setIsAdmin(user.Permission.role === 'admin')
       } else {
         Alert.alert("Erro", "Credenciais inválidas.");
       }

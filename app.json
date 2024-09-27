@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "nreport",
-    "slug": "nreport",
+    "name": "ecoalert",
+    "slug": "ecoalert",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

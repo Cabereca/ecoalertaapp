@@ -1,16 +1,15 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
-import { useContext, useEffect, useState } from 'react';
-import useCustomFonts from './assets/fonts/useFonts';
-import api from './src/api/api';
-import { AuthContext, AuthProvider } from './src/contexts/AuthContext';
-import PrivateRoutes from './src/routes/private/PrivateRoutes';
-import PublicRoutes from './src/routes/public/PublicRoutes';
-import { LogBox } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { useContext, useEffect, useState } from "react";
+import { LogBox } from "react-native";
+import useCustomFonts from "./assets/fonts/useFonts";
+import { AuthContext, AuthProvider } from "./src/contexts/AuthContext";
+import PrivateRoutes from "./src/routes/private/PrivateRoutes";
+import PublicRoutes from "./src/routes/public/PublicRoutes";
 
 function AppContent() {
-  const { isAuth, setIsAuth, setIsAdmin } = useContext(AuthContext);
+  const { isAuth, setIsAuth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,10 +18,7 @@ function AppContent() {
         const token = await AsyncStorage.getItem("token");
 
         if (token) {
-          // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          // const user = (await api.get("/api/v1/users/profile")).data;
           setIsAuth(true);
-          // setIsAdmin(user.Permission.role === 'admin')
         } else {
           setIsAuth(false);
         }
@@ -35,10 +31,10 @@ function AppContent() {
     }
 
     getToken();
-  }, [])
+  }, []);
 
   if (isLoading) {
-    return
+    return;
   }
 
   return (
@@ -60,7 +56,7 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <StatusBar backgroundColor='#292929' style='inverted'/>
+      <StatusBar backgroundColor="#292929" style="inverted" />
       <AppContent />
     </AuthProvider>
   );
