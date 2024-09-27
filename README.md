@@ -1,2 +1,2 @@
 # PDM
-Repositório criado para desenvolver o aplicativo mobile N-Report, um app de registro de crimes. 
+Aplicativo de registro de ocorrências

@@ -1,25 +1,21 @@
-import React from "react"
-import { SafeAreaView, StyleSheet } from "react-native"
+import React from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 interface Props {
-    children: React.JSX.Element | React.JSX.Element[]
+  children: React.JSX.Element | React.JSX.Element[];
 }
 
 const ContainerScreen = ({ children }: Props): React.JSX.Element => {
-    return (
-        <SafeAreaView style={styles.container}>
-            {children}
-        </SafeAreaView>
-    )
-}
+  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F4FEF4',
-        padding: 15,
-        paddingTop: 30
-    },
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#F4FEF4",
+    padding: 15,
+    paddingTop: 30,
+  },
+});
 
 export default ContainerScreen;
